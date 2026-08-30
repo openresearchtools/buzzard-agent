@@ -3,7 +3,7 @@ Version: 0.84.1+buzzard1
 Section: devel
 Priority: optional
 Architecture: amd64
-Maintainer: openresearchtools <openresearchtools@gmail.com>
+Maintainer: openresearchtools <229047507+openresearchtools@users.noreply.github.com>
 Depends: ca-certificates, fd-find, ripgrep, libc6 (>= 2.39), libgcc-s1, libstdc++6
 Suggests: wildbuzzard, buzzard-search, buzzard-minijtt, git, yt-dlp
 Homepage: https://github.com/openresearchtools/buzzard-agent

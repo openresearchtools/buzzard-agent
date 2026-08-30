@@ -1,7 +1,7 @@
 Source: buzzard-agent-web
 Section: devel
 Priority: optional
-Maintainer: openresearchtools <openresearchtools@gmail.com>
+Maintainer: openresearchtools <229047507+openresearchtools@users.noreply.github.com>
 Build-Depends: debhelper-compat (= 13), ca-certificates, curl, python3, xz-utils, build-essential
 Standards-Version: 4.7.2
 Homepage: https://github.com/openresearchtools/buzzard-agent

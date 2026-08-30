@@ -21,6 +21,9 @@ PRIVATE_CONTRACTS = (
     "native_search",
     "torrent_search",
 )
+EXPECTED_MAINTAINER = (
+    "openresearchtools <229047507+openresearchtools@users.noreply.github.com>"
+)
 
 
 def field(package: Path, name: str) -> str:
@@ -90,6 +93,8 @@ def main() -> None:
     for package, (name, version, dependencies) in expected.items():
         if field(package, "Package") != name:
             raise AssertionError(f"wrong package identity: {package}")
+        if field(package, "Maintainer") != EXPECTED_MAINTAINER:
+            raise AssertionError(f"wrong package maintainer: {package}")
         if field(package, "Version") != version or field(package, "Architecture") != "amd64":
             raise AssertionError(f"wrong package version or architecture: {package}")
         if dependency_names(field(package, "Depends")) != dependencies:
