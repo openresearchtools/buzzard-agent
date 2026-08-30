@@ -1,0 +1,16 @@
+Buzzard Agent standalone integration and packaging
+Copyright 2026 Open Research Tools
+SPDX-License-Identifier: AGPL-3.0-or-later
+
+This repository contains complete pinned third-party source trees. Their
+licenses are not replaced by the repository license:
+
+- Pi Agent Harness, copyright 2025 Mario Zechner, MIT;
+- Pi Web, copyright 2026 Federico Jaramillo Martinez, MIT;
+- pi-web-access, copyright 2025 Nico Bailon, MIT; and
+- youtube-transcript-api and transitive runtime dependencies under the licenses
+  recorded beside their source and in the package lockfiles.
+
+BrowserOS and Mozilla Firefox DevTools MCP informed the browser-control
+compatibility documentation. Their code remains in the Wild Buzzard browser
+repository; this repository consumes only the installed `wildbuzzard` CLI.

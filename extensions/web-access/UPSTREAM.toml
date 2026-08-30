@@ -1,0 +1,23 @@
+name = "pi-web-access"
+repository = "https://github.com/nicobailon/pi-web-access.git"
+commit = "692483ae782e41978fb2eba0eec70fd4056608c8"
+version = "0.19.0"
+license = "MIT"
+license_file = "LICENSE.pi-web-access"
+treatment = "selected behavior and structures ported; all hosted provider and credential routing removed"
+
+[[retained]]
+path = "crawl.ts"
+treatment = "bounded crawl, cancellation, and progress behavior rewritten"
+
+[[retained]]
+path = "extract.ts"
+treatment = "readable content extraction rewritten around the generic browser CLI"
+
+[[retained]]
+path = "storage.ts"
+treatment = "one-hour session-scoped content handles rewritten"
+
+[[runtime]]
+path = "index.ts"
+treatment = "installs only fetch, crawl, and stored-content tools; browser access is the public /usr/bin/wildbuzzard CLI"

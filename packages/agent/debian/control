@@ -1,0 +1,17 @@
+Source: buzzard-agent
+Section: devel
+Priority: optional
+Maintainer: openresearchtools <openresearchtools@gmail.com>
+Build-Depends: debhelper-compat (= 13), ca-certificates, curl, python3, patch, xz-utils
+Standards-Version: 4.7.2
+Homepage: https://github.com/openresearchtools/buzzard-agent
+Rules-Requires-Root: no
+
+Package: buzzard-agent
+Architecture: amd64
+Depends: ${misc:Depends}, ca-certificates, fd-find, ripgrep, libc6 (>= 2.39), libgcc-s1, libstdc++6
+Suggests: wildbuzzard, buzzard-search, buzzard-minijtt, git, yt-dlp
+Description: independent modular coding agent
+ Buzzard Agent is a debranded coding-agent runtime with extension and skill
+ support. Browser control, web search, and torrent discovery are optional
+ capabilities supplied by independent Debian packages.

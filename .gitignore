@@ -1,0 +1,7 @@
+.cache/
+dist/
+packages/*/build/
+packages/*/dist/
+**/__pycache__/
+**/node_modules/
+ci-output/

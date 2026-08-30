@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "expected": [
+    {
+      "name": "test/credential-print.test.ts > credential print commands > reports unknown auth options like package commands",
+      "reason": "downstream command branding"
+    },
+    {
+      "name": "test/first-time-setup.test.ts > shouldRunFirstTimeSetup > returns true when experimental, default agent dir, and no settings.json",
+      "reason": "upstream-only first-time setup is disabled for downstream distributions"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > shows install subcommand help",
+      "reason": "downstream command branding"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > shows a friendly error for unknown install options",
+      "reason": "downstream command branding"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > shows a friendly error for missing install source",
+      "reason": "downstream command branding"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > allows explicit self-update checks when automatic version checks are disabled",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > retries a transient self-update version check",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > uses the update check version for forced self updates even when current",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > uses the current package name when the update check omits packageName",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > installs the active package name from the update check during self-update",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > prints a pnpm metadata hint when self-update fails",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/package-command-paths.test.ts > package commands > fails self-update when renamed npm package installation fails",
+      "reason": "npm self-update is replaced by apt ownership"
+    },
+    {
+      "name": "test/pi-user-agent.test.ts > getPiUserAgent > formats the user agent expected by pi.dev",
+      "reason": "downstream network identity"
+    },
+    {
+      "name": "test/remote-catalog-provider.test.ts > remote catalog provider > parses keyed catalogs, sends version headers, observes the refresh TTL, and supports forced refreshes",
+      "reason": "downstream network identity"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > adds default attribution headers for OpenRouter models",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > adds attribution headers for custom providers routed through OpenRouter",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > preserves legacy OpenRouter base URL substring attribution matching",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > adds default attribution headers for direct NVIDIA NIM endpoints",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > adds default attribution headers for the NVIDIA provider",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > does not add NVIDIA NIM attribution headers for NVIDIA models routed through OpenRouter",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/sdk-openrouter-attribution.test.ts > createAgentSession provider attribution headers > adds OpenCode session headers",
+      "reason": "downstream provider attribution"
+    },
+    {
+      "name": "test/session-file-invalid.test.ts > --session invalid file handling > prints a friendly error and preserves non-session file content",
+      "reason": "downstream session error branding"
+    },
+    {
+      "name": "test/system-prompt.test.ts > buildSystemPrompt > default tools > instructs models to resolve pi docs and examples under absolute base paths",
+      "reason": "downstream system prompt branding"
+    },
+    {
+      "name": "test/version-check.test.ts > version checks > uses the pi.dev version check api with a pi user agent",
+      "reason": "downstream network identity"
+    },
+    {
+      "name": "test/session-manager/file-operations.test.ts > SessionManager.setSessionFile with corrupted files > throws and preserves non-empty file without valid header",
+      "reason": "downstream session error branding"
+    },
+    {
+      "name": "test/session-manager/file-operations.test.ts > SessionManager.setSessionFile with corrupted files > throws and preserves non-session JSONL files",
+      "reason": "downstream session error branding"
+    }
+  ]
+}

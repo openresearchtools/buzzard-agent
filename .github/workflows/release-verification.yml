@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Standalone release verification
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ubuntu-2404:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      BUZZARD_CI_RUN_ROOT: ${{ runner.temp }}/buzzard-agent-release
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            build-essential ca-certificates curl dpkg-dev fd-find git python3 ripgrep xz-utils
+
+      - name: Build and verify reproducible packages
+        run: ./ci/verify-release.sh
+
+      - name: Install packages from the run
+        run: |
+          sudo apt-get install --yes --no-install-recommends \
+            "$BUZZARD_CI_RUN_ROOT/artifacts/final/buzzard-agent_0.84.1+buzzard1_amd64.deb" \
+            "$BUZZARD_CI_RUN_ROOT/artifacts/final/buzzard-agent-web_1.202608.0+buzzard1_amd64.deb"
+
+      - name: Exercise the installed web and agent stack
+        run: ./ci/smoke-installed.sh >"$BUZZARD_CI_RUN_ROOT/logs/installed-smoke.log" 2>&1
+
+      - name: Exercise the same packages on Debian 13
+        run: |
+          docker run --rm \
+            --volume "$BUZZARD_CI_RUN_ROOT/artifacts/final:/artifacts:ro" \
+            --volume "$GITHUB_WORKSPACE/ci/smoke-installed.sh:/smoke-installed.sh:ro" \
+            debian:13-slim \
+            sh -c 'apt-get update && apt-get install --yes --no-install-recommends /artifacts/buzzard-agent_0.84.1+buzzard1_amd64.deb /artifacts/buzzard-agent-web_1.202608.0+buzzard1_amd64.deb && /smoke-installed.sh' \
+            >"$BUZZARD_CI_RUN_ROOT/logs/installed-smoke-debian13.log" 2>&1
+
+      - name: Upload packages and verification logs
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: buzzard-agent-ubuntu-24.04-${{ github.run_id }}
+          path: |
+            ${{ env.BUZZARD_CI_RUN_ROOT }}/artifacts
+            ${{ env.BUZZARD_CI_RUN_ROOT }}/logs
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14

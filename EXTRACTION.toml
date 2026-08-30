@@ -1,0 +1,131 @@
+schema = 1
+source_repository = "https://github.com/openresearchtools/wildbuzzard"
+source_head = "51c80e28731a2c88a7aa904a101cf984e60c078d"
+license = "AGPL-3.0-or-later"
+browser_dependency = "/usr/bin/wildbuzzard CLI only"
+
+[[history]]
+commit = "b531dd7f6108edf9fcf89181821fca899266b7d2"
+purpose = "introduced agent-facing browser-control tools and compatibility documentation"
+treatment = "compatibility documentation and a portable CLI skill are retained; Gecko implementation stays browser-owned"
+
+[[history]]
+commit = "ddbfc8b2ce75a6b37ffc6589a26a8ef242dd08d3"
+purpose = "introduced the persistent Pi Web experience and browser Agent surface"
+treatment = "Pi Web runtime, UI, service and packaging are extracted; Firefox toolbar, sidebar, urlbar and about-page ownership are not"
+
+[[history]]
+commit = "995d2ba6a4a93d1955c56860e07841ab8d9bf96f"
+purpose = "introduced deterministic downstream pi-web-access capabilities"
+treatment = "browser-content capability source and pristine upstream source are retained; replaced combined search/torrent adapters remain attributable through this commit"
+
+[[history]]
+commit = "dbf6b6facbb3fee6f8a4526ef67ac7c8e9cce3f4"
+purpose = "introduced session-scoped torrent discovery and draft tools"
+treatment = "omitted from the active agent extension; independent buzzard-minijtt owns discovery and the browser owns confirmed import/download"
+
+[[history]]
+commit = "b546d9701b157a305070ef1753bbf95e77ec39fe"
+purpose = "hardened torrent draft authorization boundaries"
+treatment = "superseded by the independent torrent CLI skill and explicit browser confirmation boundary"
+
+[[history]]
+commit = "68b939c3bd92e89fafe3454c234812267c0c7f1e"
+purpose = "retained torrent tools across agent activation"
+treatment = "omitted because the agent no longer registers torrent tools"
+
+[[history]]
+commit = "6888ac93c0d7385a12c09db4f7be0682074d5f82"
+purpose = "retained stored web-result tools across agent activation"
+treatment = "activation and follow-up storage are retained only for fetch/crawl content"
+
+[[history]]
+commit = "25a15d83ecd3fc379cfa1b29790f7f3784acb13e"
+purpose = "hardened Gecko crawl and combined-search contracts"
+treatment = "bounded crawl/render behavior is retained; the combined search contract is omitted"
+
+[[history]]
+commit = "7302def1a95d4411c59692b66fc7164776d9044f"
+purpose = "enforced the former browser search-connection schema"
+treatment = "omitted with the browser-proxied search adapter"
+
+[[history]]
+commit = "7daa344ed1ff0b7b407bbd65870030d8a03f5523"
+purpose = "isolated and hardened deterministic web tools"
+treatment = "session isolation, bounded persistence, output redaction, Git and caption hardening are retained; provider search code is omitted"
+
+[[history]]
+commit = "8cef556542243202b5794dfd7ef04eae4e4ac968"
+purpose = "redacted persisted source URLs and page-answer output"
+treatment = "retained in the browser-content adapter"
+
+[[history]]
+commit = "f458be83420dee4cfe938d4d45adac27f3bc3e76"
+purpose = "suppressed persistence for credential-bearing URLs"
+treatment = "retained in the browser-content adapter"
+
+[[history]]
+commit = "ca38517d9fe7e591e4a16d05356805a87be14bb3"
+purpose = "made the former staged policy test relocatable"
+treatment = "replaced with a standalone policy test that has no sibling-browser source dependency"
+
+[[history]]
+commit = "d8e1e71765f52fccd894c2e4120572c4144e405f"
+purpose = "routed the former Pi web search through the browser bridge"
+treatment = "omitted; search now uses the independent /usr/bin/buzzard-search protocol and installed skill"
+
+[[history]]
+commit = "3bd4ea16a43f9508e89b9baa09aa355420ecbcba"
+purpose = "completed bounded Gecko crawl coordination"
+treatment = "retained over the public /usr/bin/wildbuzzard gecko_render command"
+
+[[history]]
+commit = "c83d38baf83f9f24cbff98d3ccf57b60666ec328"
+purpose = "checkpointed qBittorrent-backed torrent integration"
+treatment = "omitted from the agent; native torrent transfer control remains browser-owned"
+
+[[history]]
+commit = "51c80e28731a2c88a7aa904a101cf984e60c078d"
+purpose = "removed the obsolete Pi-specific browser-tools extension and browser-runner transport"
+treatment = "the private adapter is not revived; agents use the installed Wild Buzzard CLI and portable skill"
+
+[[component]]
+target = "packages/agent"
+source = "wildbuzzard/components/buzzard-agent"
+upstream = "vendor/pi"
+
+[[component]]
+target = "packages/web"
+source = "wildbuzzard/components/buzzard-agent-web"
+upstream = "vendor/pi-web"
+
+[[component]]
+target = "extensions/web-access"
+source = "agent/extensions/web-access"
+upstream = "vendor/pi-web-access"
+treatment = "browser-content-only derivative installed conditionally; replaced search and torrent modules are omitted from the active tree"
+
+[[component]]
+target = "extensions/buzzard-capabilities"
+source = "agent/integrations/buzzard-capabilities"
+treatment = "rewritten as optional skill discovery without MCP or private browser transport"
+
+[[excluded_browser_owner]]
+path = "wildbuzzard/browser/extensions/agent-sidebar"
+reason = "browser-specific Agent view removed by the browser cleanup"
+
+[[excluded_browser_owner]]
+path = "wildbuzzard/browser/components/agent"
+reason = "browser-specific service supervision and about-page code removed by the browser cleanup"
+
+[[excluded_browser_owner]]
+path = "remote/wildbuzzard"
+reason = "generic browser-control implementation remains owned by the browser"
+
+[[excluded_browser_owner]]
+path = "agent/extensions/browser-tools"
+reason = "historical Pi-specific private transport was removed and is superseded by the generic browser CLI skill"
+
+[[excluded_browser_owner]]
+path = "agent/runtime/browser-runner"
+reason = "historical bridge runner was removed and must not become a second browser-control implementation"

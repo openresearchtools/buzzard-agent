@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	./build-deb.sh $(CURDIR)/debian/dist
+
+override_dh_auto_test:
+	python3 -m unittest discover -s tests -p 'test_*.py'
+
+override_dh_auto_install:
+	dpkg-deb -x debian/dist/buzzard-agent_0.84.1+buzzard1_amd64.deb \
+		debian/buzzard-agent

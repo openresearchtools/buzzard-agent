@@ -1,0 +1,46 @@
+#!/bin/sh
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+set -eu
+
+export PI_SKIP_VERSION_CHECK=1
+export PI_TELEMETRY=0
+
+if [ -z "${BUZZARD_AGENT_DIR:-}" ]; then
+  if [ -n "${PI_WEB_AGENT_DIR:-}" ]; then
+    export BUZZARD_AGENT_DIR="$PI_WEB_AGENT_DIR"
+  elif [ -n "${PI_CODING_AGENT_DIR:-}" ]; then
+    export BUZZARD_AGENT_DIR="$PI_CODING_AGENT_DIR"
+  fi
+fi
+if [ -z "${BUZZARD_AGENT_SESSION_DIR:-}" ]; then
+  if [ -n "${PI_WEB_AGENT_SESSION_DIR:-}" ]; then
+    export BUZZARD_AGENT_SESSION_DIR="$PI_WEB_AGENT_SESSION_DIR"
+  elif [ -n "${PI_CODING_AGENT_SESSION_DIR:-}" ]; then
+    export BUZZARD_AGENT_SESSION_DIR="$PI_CODING_AGENT_SESSION_DIR"
+  fi
+fi
+
+if [ "${BUZZARD_AGENT_OFFLINE:-}" ]; then
+  export PI_OFFLINE="${BUZZARD_AGENT_OFFLINE}"
+fi
+if [ "${BUZZARD_AGENT_PACKAGE_DIR:-}" ]; then
+  export PI_PACKAGE_DIR="${BUZZARD_AGENT_PACKAGE_DIR}"
+fi
+
+capability_extension=/usr/lib/buzzard-agent/app/extensions/buzzard-capabilities/index.ts
+web_content_extension=/usr/lib/buzzard-agent/app/extensions/web-access/index.ts
+load_builtins=${BUZZARD_AGENT_BUILTIN_EXTENSIONS:-${BUZZARD_AGENT_CAPABILITY_EXTENSION:-1}}
+for argument in "$@"; do
+  if [ "$argument" = "--no-extensions" ] || [ "$argument" = "-ne" ]; then
+    load_builtins=0
+  fi
+done
+if [ "$load_builtins" != 0 ] && [ -f "$capability_extension" ]; then
+  set -- --extension "$capability_extension" "$@"
+fi
+if [ "$load_builtins" != 0 ] && [ -x /usr/bin/wildbuzzard ] && [ -f "$web_content_extension" ]; then
+  set -- --extension "$web_content_extension" "$@"
+fi
+
+exec /usr/lib/buzzard-agent/node/bin/node /usr/lib/buzzard-agent/app/node_modules/@earendil-works/pi-coding-agent/dist/cli.js "$@"
