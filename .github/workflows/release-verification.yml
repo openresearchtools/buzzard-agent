@@ -31,7 +31,9 @@ jobs:
             build-essential ca-certificates curl dpkg-dev fd-find git python3 ripgrep xz-utils
 
       - name: Build and verify reproducible packages
-        run: ./ci/verify-release.sh
+        run: |
+          BUZZARD_UPSTREAM_SUITE_ROOT="$RUNNER_TEMP/ba-$GITHUB_RUN_ID" \
+            ./ci/verify-release.sh
 
       - name: Install packages from the run
         run: |

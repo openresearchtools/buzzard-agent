@@ -65,9 +65,10 @@ run_logged web-access-install npm --prefix extensions/web-access ci --ignore-scr
 run_logged web-access-typecheck npm --prefix extensions/web-access run typecheck
 run_logged web-access-tests npm --prefix extensions/web-access test
 if [ "${RUN_FULL_UPSTREAM_SUITE:-1}" = 1 ]; then
+  upstream_suite_root=${BUZZARD_UPSTREAM_SUITE_ROOT:-"$work/upstream-suite"}
   run_logged upstream-suite-classification \
     "$repository/packages/agent/scripts/test-prepared-upstream.sh" \
-    "$work/upstream-suite" "$logs/upstream-suite.log"
+    "$upstream_suite_root" "$logs/upstream-suite.log"
 fi
 
 run_logged agent-build "$repository/packages/agent/build-deb.sh" "$artifacts"
